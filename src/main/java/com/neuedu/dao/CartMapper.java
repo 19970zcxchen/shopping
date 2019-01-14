@@ -2,6 +2,7 @@ package com.neuedu.dao;
 
 import com.neuedu.pojo.Cart;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 @Mapper
@@ -45,4 +46,48 @@ public interface CartMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(Cart record);
+
+    Cart selectCarByUserIdAndProductId(@Param("userId") Integer userId,
+                                       @Param("productId") Integer productId);
+    /**
+     * 查询用户的购物车信息
+     *       （通过userID查询购物车信息）
+     */
+    List<Cart> selectCarByUserId(Integer userId);
+    /**
+     * 统计用户购物信息是否全选
+     * @return >0说明未全选
+     */
+    int isCheckedAll(Integer userId);
+    /**
+     * 移除购物车某个商品
+     */
+    int deleteByUseridAndProductIds(@Param("userId") Integer userId,
+                                    @Param("productIdList") List<Integer> productIdList);
+
+    /**
+     * 购物车是否选中某个商品
+     * @param userId
+     * @param productId
+     * @param  check 1：选中 0：未选中
+     */
+    int selectOrUnselectProduct(@Param("userId") Integer userId,
+                                @Param("productId") Integer productId,
+                                @Param("check") Integer check);
+
+    /**
+     * .查询在购物车里的产品数量
+     */
+    int get_cart_product_count(Integer userId);
+
+    /**
+     * 查询购物车中已选中的商品
+     * @param userId
+     */
+    List<Cart> findCartListByUserIdAndChecked(Integer userId);
+    /**
+     * 批量删除购物车的商品
+     */
+    int batchDelete(List<Cart> cartList);
+
 }
