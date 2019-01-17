@@ -22,7 +22,7 @@ public class UploadController {
     @RequestMapping(value = "/upload",method = RequestMethod.POST)
     @ResponseBody
     public ServerResponse upload2(@RequestParam(value = "upload_file",required = false)MultipartFile file ){
-        String path="C:\\Users\\Administrator\\Desktop\\img";
+        String path="/usr/zcx/project/img";
         return productService.upload(file,path);//逻辑视图   前缀+逻辑视图+后缀  /WEB-INF/jsp/upload.jsp
     }
 }
